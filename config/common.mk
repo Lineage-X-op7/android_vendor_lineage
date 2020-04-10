@@ -116,6 +116,18 @@ PRODUCT_PACKAGES += \
     LineageSetupWizard \
     Updater
 
+# Face Unlock
+TARGET_FACE_UNLOCK_SUPPORTED := false
+ifeq ($(TARGET_USES_FACELOCK),true)
+ifneq ($(TARGET_DISABLE_ALTERNATIVE_FACE_UNLOCK), true)
+PRODUCT_PACKAGES += \
+    FaceUnlockService
+TARGET_FACE_UNLOCK_SUPPORTED := true
+endif
+endif
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.face.moto_unlock_service=$(TARGET_FACE_UNLOCK_SUPPORTED)
+
 # Themes
 PRODUCT_PACKAGES += \
     LineageThemesStub \
